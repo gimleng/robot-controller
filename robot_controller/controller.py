@@ -3,7 +3,7 @@ import cv2
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QImage, QPixmap
-
+import requests
 
 class SkyVIVRobotController(QtWidgets.QWidget):
     def __init__(self):
@@ -148,8 +148,25 @@ class SkyVIVRobotController(QtWidgets.QWidget):
             return
 
         self.current_cmd = cmd
-        print(f"Robot command: {cmd}")
-        self.statusLabel.setText(f"Status: {cmd}")
+
+        ip = self.ipInput.text().strip()
+        url_cmd = cmd.lower()   # FORWARD -> forward
+
+        try:
+            url = f"http://{ip}:8000/move/{url_cmd}"
+            r = requests.get(url, timeout=0.3)
+
+            if r.status_code == 200:
+                print(f"Sent command: {cmd}")
+                self.statusLabel.setText(f"Status: {cmd}")
+            else:
+                self.statusLabel.setText("Status: COMMAND ERROR")
+                self.statusLabel.setStyleSheet("color: red;")
+
+        except requests.exceptions.RequestException as e:
+            self.statusLabel.setText("Status: ROBOT OFFLINE")
+            self.statusLabel.setStyleSheet("color: red;")
+            print("Request error:", e)
 
 
 # -------------------------

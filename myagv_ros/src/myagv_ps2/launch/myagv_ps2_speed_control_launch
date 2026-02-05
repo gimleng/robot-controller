@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="myagv_ps2" type="publisher_speed_control" name="publisher_speed_control" output="screen" />
+</launch>

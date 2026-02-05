@@ -29,6 +29,8 @@ class SkyVIVRobotController(QtWidgets.QWidget):
         self.btnBackward.clicked.connect(lambda: self.send_command("BACKWARD"))
         self.btnLeft.clicked.connect(lambda: self.send_command("LEFT"))
         self.btnRight.clicked.connect(lambda: self.send_command("RIGHT"))
+        self.btnCW.clicked.connect(lambda: self.send_command("CW"))
+        self.btnCCW.clicked.connect(lambda: self.send_command("CCW"))
         self.btnStop.clicked.connect(lambda: self.send_command("STOP"))
 
         self.cameraType.currentTextChanged.connect(self.update_camera_hint)
@@ -48,6 +50,7 @@ class SkyVIVRobotController(QtWidgets.QWidget):
         self.open_camera(cam_type, cam_source)
 
     def open_camera(self, cam_type, source):
+        ip = self.ipInput.text().strip()
         if self.cap:
             self.timer.stop()
             self.cap.release()
@@ -56,8 +59,16 @@ class SkyVIVRobotController(QtWidgets.QWidget):
         try:
             if cam_type == "OpenCV":
                 self.cap = cv2.VideoCapture(int(source))
+            elif cam_type == "RTSP":
+                self.cap = cv2.VideoCapture(
+                    f"rtsp://{ip}:8554/test?rtsp_transport=tcp&max_delay=0",
+                    cv2.CAP_FFMPEG
+                )
+
+                self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
             else:
-                self.cap = cv2.VideoCapture(source)
+                self.cap = cv2.VideoCapture(int(source))
+                       
 
             if not self.cap.isOpened():
                 raise RuntimeError("Camera open failed")
@@ -91,7 +102,7 @@ class SkyVIVRobotController(QtWidgets.QWidget):
         self.videoLabel.setPixmap(QPixmap.fromImage(qimg))
 
     # -------------------------
-    # Keyboard (WASD)
+    # Keyboard (WASDQA)
     # -------------------------
     def keyPressEvent(self, event):
         if event.isAutoRepeat():
@@ -102,6 +113,8 @@ class SkyVIVRobotController(QtWidgets.QWidget):
             Qt.Key_S: "BACKWARD",
             Qt.Key_A: "LEFT",
             Qt.Key_D: "RIGHT",
+            Qt.Key_Q: "CW",
+            Qt.Key_E: "CCW",
         }
 
         cmd = key_map.get(event.key())
@@ -123,7 +136,7 @@ class SkyVIVRobotController(QtWidgets.QWidget):
         hints = {
             "UDP": "udp://@:5000",
             "OpenCV": "0 (webcam index)",
-            "RTSP": "rtsp://user:pass@ip/stream",
+            "RTSP": "rtsp://ip:8554/test",
         }
         self.labelCamHint.setText(hints.get(cam_type, ""))
 

@@ -1,215 +1,322 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SkyVIVRobotController</class>
- <widget class="QWidget" name="SkyVIVRobotController">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>720</width>
-    <height>560</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>SkyVIV Robot Controller</string>
-  </property>
-  <property name="styleSheet">
-   <string>
-QWidget {
-    background-color: #121212;
-    color: #E0E0E0;
-    font-family: Segoe UI;
-    font-size: 11pt;
-}
+    <class>SkyVIVRobotController</class>
+    <widget class="QWidget" name="SkyVIVRobotController">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>720</width>
+                <height>560</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>SkyVIV Robot Controller</string>
+        </property>
+        <property name="styleSheet">
+            <string>
+                QWidget {
+                background-color: #121212;
+                color: #E0E0E0;
+                font-family: Segoe UI;
+                font-size: 11pt;
+                }
 
-QLineEdit, QComboBox {
-    background-color: #1E1E1E;
-    border: 1px solid #333;
-    border-radius: 6px;
-    padding: 6px;
-}
+                QLineEdit, QComboBox {
+                background-color: #1E1E1E;
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 6px;
+                }
 
-QLineEdit:focus, QComboBox:focus {
-    border: 1px solid #FFB300;
-}
+                QLineEdit:focus, QComboBox:focus {
+                border: 1px solid #FFB300;
+                }
 
-QLabel {
-    color: #CCCCCC;
-}
+                QLabel {
+                color: #CCCCCC;
+                }
 
-QPushButton {
-    background-color: #FFB300;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    font-weight: bold;
-}
+                QPushButton {
+                background-color: #FFB300;
+                color: #000;
+                border: none;
+                border-radius: 8px;
+                padding: 8px;
+                font-weight: bold;
+                }
 
-QPushButton:hover {
-    background-color: #FFC83D;
-}
+                QPushButton:hover {
+                background-color: #FFC83D;
+                }
 
-QPushButton:pressed {
-    background-color: #E6A800;
-}
+                QPushButton:pressed {
+                background-color: #E6A800;
+                }
 
-QPushButton#btnStop {
-    background-color: #444;
-    color: #FFF;
-}
+                QPushButton#btnStop {
+                background-color: #444;
+                color: #FFF;
+                }
 
-QPushButton#btnStop:hover {
-    background-color: #666;
-}
-   </string>
-  </property>
+                QPushButton#btnStop:hover {
+                background-color: #666;
+                }
+            </string>
+        </property>
 
-  <layout class="QVBoxLayout" name="mainLayout" stretch="0,0,1">
+        <layout class="QVBoxLayout" name="mainLayout" stretch="0,0,1">
 
-   <!-- ================= Video ================= -->
-   <item>
-    <widget class="QLabel" name="videoLabel">
-     <property name="minimumSize">
-      <size>
-       <width>680</width>
-       <height>320</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>NO VIDEO SIGNAL</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="styleSheet">
-      <string>
-background-color: #000;
-border: 2px solid #333;
-color: #777;
-font-size: 14pt;
-      </string>
-     </property>
+            <!-- ================= Video ================= -->
+            <item>
+                <widget class="QLabel" name="videoLabel">
+                    <property name="minimumSize">
+                        <size>
+                            <width>680</width>
+                            <height>320</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string>NO VIDEO SIGNAL</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="styleSheet">
+                        <string>
+                            background-color: #000;
+                            border: 2px solid #333;
+                            color: #777;
+                            font-size: 14pt;
+                        </string>
+                    </property>
+                </widget>
+            </item>
+
+            <!-- ================= Settings ================= -->
+            <item>
+                <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0">
+
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="labelIp">
+                            <property name="text">
+                                <string>Robot IP</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="0" column="1">
+                        <widget class="QLineEdit" name="ipInput">
+                            <property name="text">
+                                <string>127.0.0.1</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="0" column="2">
+                        <widget class="QPushButton" name="btnConnect">
+                            <property name="text">
+                                <string>CONNECT</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="1" column="0">
+                        <widget class="QLabel" name="labelCamType">
+                            <property name="text">
+                                <string>Camera Type</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="1" column="1">
+                        <widget class="QComboBox" name="cameraType">
+                            <item>
+                                <property name="text">
+                                    <string>UDP</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>OpenCV</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>RTSP</string>
+                                </property>
+                            </item>
+                        </widget>
+                    </item>
+
+                    <item row="1" column="2">
+                        <widget class="QLabel" name="labelCamHint">
+                            <property name="text">
+                                <string>udp://@:5000</string>
+                            </property>
+                            <property name="styleSheet">
+                                <string>color:#888;</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="labelCamSource">
+                            <property name="text">
+                                <string>Camera Source</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="2" column="1" colspan="2">
+                        <widget class="QLineEdit" name="cameraSource">
+                            <property name="text">
+                                <string>udp://@:5000</string>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <item row="3" column="0" colspan="3">
+                        <widget class="QLabel" name="statusLabel">
+                            <property name="text">
+                                <string>Status: NOT CONNECTED</string>
+                            </property>
+                            <property name="alignment">
+                                <set>Qt::AlignCenter</set>
+                            </property>
+                            <property name="styleSheet">
+                                <string>
+                                    color: #FFB300;
+                                    font-weight: bold;
+                                </string>
+                            </property>
+                        </widget>
+                    </item>
+
+                </layout>
+            </item>
+
+            <!-- ================= Controls ================= -->
+            <item>
+                <layout class="QGridLayout" name="controlLayout">
+
+                    <!-- CW -->
+                    <item row="0" column="0">
+                        <widget class="QPushButton" name="btnCCW">
+                            <property name="text">
+                                <string>⟲</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Rotate Counter-Clockwise (E)</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <!-- Forward -->
+                    <item row="0" column="1">
+                        <widget class="QPushButton" name="btnForward">
+                            <property name="text">
+                                <string>▲</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <!-- CCW -->
+                    <item row="0" column="2">
+                        <widget class="QPushButton" name="btnCW">
+                            <property name="text">
+                                <string>⟳</string>
+                            </property>
+                            <property name="toolTip">
+                                <string>Rotate Clockwise (Q)</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+
+                    </item>
+
+                    <!-- Left -->
+                    <item row="1" column="0">
+                        <widget class="QPushButton" name="btnLeft">
+                            <property name="text">
+                                <string>◀</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <!-- Stop -->
+                    <item row="1" column="1">
+                        <widget class="QPushButton" name="btnStop">
+                            <property name="text">
+                                <string>■</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <!-- Right -->
+                    <item row="1" column="2">
+                        <widget class="QPushButton" name="btnRight">
+                            <property name="text">
+                                <string>▶</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                    <!-- Backward -->
+                    <item row="2" column="1">
+                        <widget class="QPushButton" name="btnBackward">
+                            <property name="text">
+                                <string>▼</string>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>50</height>
+                                </size>
+                            </property>
+                        </widget>
+                    </item>
+
+                </layout>
+            </item>
+
+        </layout>
     </widget>
-   </item>
-
-   <!-- ================= Settings ================= -->
-   <item>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0">
-
-     <item row="0" column="0">
-      <widget class="QLabel" name="labelIp">
-       <property name="text"><string>Robot IP</string></property>
-      </widget>
-     </item>
-
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="ipInput">
-       <property name="text"><string>127.0.0.1</string></property>
-      </widget>
-     </item>
-
-     <item row="0" column="2">
-      <widget class="QPushButton" name="btnConnect">
-       <property name="text"><string>CONNECT</string></property>
-      </widget>
-     </item>
-
-     <item row="1" column="0">
-      <widget class="QLabel" name="labelCamType">
-       <property name="text"><string>Camera Type</string></property>
-      </widget>
-     </item>
-
-     <item row="1" column="1">
-      <widget class="QComboBox" name="cameraType">
-        <item><property name="text"><string>UDP</string></property></item>
-        <item><property name="text"><string>OpenCV</string></property></item>
-        <item><property name="text"><string>RTSP</string></property></item>
-      </widget>
-     </item>
-
-     <item row="1" column="2">
-      <widget class="QLabel" name="labelCamHint">
-       <property name="text"><string>udp://@:5000</string></property>
-       <property name="styleSheet">
-        <string>color:#888;</string>
-       </property>
-      </widget>
-     </item>
-
-     <item row="2" column="0">
-      <widget class="QLabel" name="labelCamSource">
-       <property name="text"><string>Camera Source</string></property>
-      </widget>
-     </item>
-
-     <item row="2" column="1" colspan="2">
-      <widget class="QLineEdit" name="cameraSource">
-       <property name="text"><string>udp://@:5000</string></property>
-      </widget>
-     </item>
-
-     <item row="3" column="0" colspan="3">
-      <widget class="QLabel" name="statusLabel">
-       <property name="text"><string>Status: NOT CONNECTED</string></property>
-       <property name="alignment"><set>Qt::AlignCenter</set></property>
-       <property name="styleSheet">
-        <string>
-color: #FFB300;
-font-weight: bold;
-        </string>
-       </property>
-      </widget>
-     </item>
-
-    </layout>
-   </item>
-
-   <!-- ================= Controls ================= -->
-   <item>
-    <layout class="QGridLayout" name="controlLayout">
-
-     <item row="0" column="1">
-      <widget class="QPushButton" name="btnForward">
-       <property name="text"><string>▲</string></property>
-       <property name="minimumSize"><size><width>80</width><height>50</height></size></property>
-      </widget>
-     </item>
-
-     <item row="1" column="0">
-      <widget class="QPushButton" name="btnLeft">
-       <property name="text"><string>◀</string></property>
-       <property name="minimumSize"><size><width>80</width><height>50</height></size></property>
-      </widget>
-     </item>
-
-     <item row="1" column="1">
-      <widget class="QPushButton" name="btnStop">
-       <property name="text"><string>■</string></property>
-       <property name="minimumSize"><size><width>80</width><height>50</height></size></property>
-      </widget>
-     </item>
-
-     <item row="1" column="2">
-      <widget class="QPushButton" name="btnRight">
-       <property name="text"><string>▶</string></property>
-       <property name="minimumSize"><size><width>80</width><height>50</height></size></property>
-      </widget>
-     </item>
-
-     <item row="2" column="1">
-      <widget class="QPushButton" name="btnBackward">
-       <property name="text"><string>▼</string></property>
-       <property name="minimumSize"><size><width>80</width><height>50</height></size></property>
-      </widget>
-     </item>
-
-    </layout>
-   </item>
-
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <resources />
+    <connections />
 </ui>
